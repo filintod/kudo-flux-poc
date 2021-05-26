@@ -1,0 +1,50 @@
+apiVersion: flux.kudo.dev/v1alpha1
+kind: KudoFlux
+metadata:
+  name: kudoflux-sample
+spec:
+  operator:
+    spec:
+      package: abc
+      version: 1.2.0
+      sourceRef:
+        kind: GitRepository
+        name: kudo-kubeflow
+      interval: 20s
+      parameterFiles:
+        f1.yaml
+        f2.yaml
+  instanceName: rabbitmq
+  targetNamespace: mq
+  timeout: 300
+  resetValues: false
+  wait: false
+  forceUpgrade: false
+  # parameters override
+  parameters:
+    replicaCount: 2
+  parametersFrom:
+    - kind: ConfigMap
+      name: prod-env-values
+      parametersKey: values-prod.yaml
+    - kind: Secret
+      name: prod-tls-values
+      parametersKey: crt
+      targetPath: tls.crt
+      optional: true
+  deploy:
+    remediation:
+    createNamespace:
+    crds:
+  upgrade:
+    remediation:
+    createNamespace:
+    crds:
+  update:
+    remediation:
+    createNamespace:
+    crds:
+  test:
+    remediation:
+    createNamespace:
+    crds:

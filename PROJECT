@@ -1,0 +1,16 @@
+domain: kudo.dev
+layout:
+- go.kubebuilder.io/v3
+projectName: kudoflux
+repo: github.com/kudobuilder/kudoflux
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: kudo.dev
+  group: flux
+  kind: KudoFlux
+  path: github.com/kudobuilder/kudoflux/api/v1alpha1
+  version: v1alpha1
+version: "3"
